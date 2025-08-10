@@ -1,11 +1,3 @@
-// ------------------------------------------------------------------------------
-// File: Player3DController.cs
-// Description: Handles 3D movement using CharacterController.
-// Author: (Your Name)
-// Date: 2025-08-10
-// Unity Version: 2022.3 LTS
-// ------------------------------------------------------------------------------
-
 using UnityEngine;
 
 namespace MemorySketch
@@ -13,25 +5,41 @@ namespace MemorySketch
     [RequireComponent(typeof(CharacterController))]
     public class Player3DController : MonoBehaviour
     {
-        [Header("Movement")]
-        [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private float gravity = -9.81f;
+        public float moveSpeed = 6f;
+        public float jumpHeight = 1.2f;
+        public float gravity = -9.81f;
+        public Transform cam;   // 비우면 자동으로 Main Camera
 
-        private CharacterController controller;
+        private CharacterController cc;
         private Vector3 velocity;
 
-        private void Awake() => controller = GetComponent<CharacterController>();
+        private void Awake()
+        {
+            cc = GetComponent<CharacterController>();
+            if (!cam && Camera.main) cam = Camera.main.transform;
+        }
 
         private void Update()
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
-            Vector3 move = new Vector3(h, 0f, v);
-            controller.Move(move.normalized * moveSpeed * Time.deltaTime);
+            float h = Input.GetAxisRaw("Horizontal"); // A/D, ←/→
+            float v = Input.GetAxisRaw("Vertical");   // W/S, ↑/↓
 
-            if (controller.isGrounded && velocity.y < 0) velocity.y = -2f;
+            // 카메라 기준 평면 벡터
+            Vector3 fwd = Vector3.ProjectOnPlane((cam ? cam.forward : Vector3.forward), Vector3.up).normalized;
+            Vector3 right = Vector3.ProjectOnPlane((cam ? cam.right : Vector3.right), Vector3.up).normalized;
+
+            Vector3 move = (fwd * v + right * h);
+            if (move.sqrMagnitude > 1f) move.Normalize();
+
+            cc.Move(move * moveSpeed * Time.deltaTime);
+
+            // 점프 & 중력
+            if (cc.isGrounded && velocity.y < 0f) velocity.y = -2f;
+            if (Input.GetButtonDown("Jump") && cc.isGrounded)
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
             velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
+            cc.Move(velocity * Time.deltaTime);
         }
     }
 }

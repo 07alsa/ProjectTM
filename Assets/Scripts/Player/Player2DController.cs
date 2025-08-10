@@ -1,28 +1,60 @@
-// ------------------------------------------------------------------------------
-// File: Player2DController.cs
-// Description: Handles 2D movement (Rigidbody2D or Transform).
-// Author: (Your Name)
-// Date: 2025-08-10
-// Unity Version: 2022.3 LTS
-// ------------------------------------------------------------------------------
-
 using UnityEngine;
 
 namespace MemorySketch
 {
-    [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Player2DController : MonoBehaviour
     {
-        [Header("Movement")]
-        [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private bool allowVertical = false;
+        [Header("Move & Jump")]
+        public float moveSpeed = 6f;
+        public float jumpForce = 12f;
+
+        [Header("Ground Check")]
+        public Transform groundCheck;         // 발끝 빈 오브젝트
+        public float groundCheckRadius = 0.12f;
+        public LayerMask groundLayers;
+
+        private Rigidbody2D rb;
+        private bool isGrounded;
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody2D>();
+            // 2D는 z=0 평면 고정, 회전 방지
+            rb.freezeRotation = true;
+        }
 
         private void Update()
         {
+            // 좌우 이동 (x축)
             float h = Input.GetAxisRaw("Horizontal");
-            float v = allowVertical ? Input.GetAxisRaw("Vertical") : 0f;
-            Vector2 move = new Vector2(h, v).normalized;
-            transform.Translate(move * moveSpeed * Time.deltaTime);
+            rb.velocity = new Vector2(h * moveSpeed, rb.velocity.y);
+
+            // 접지 체크
+            if (groundCheck)
+                isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayers);
+
+            // 점프 (y축)
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0f);
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
+
+            // z축 드리프트 방지
+            if (Mathf.Abs(transform.position.z) > 0.0001f)
+            {
+                var p = transform.position; p.z = 0f; transform.position = p;
+            }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (groundCheck)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+            }
         }
     }
 }
