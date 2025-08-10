@@ -1,37 +1,81 @@
-// ------------------------------------------------------------------------------
-// File: CameraController.cs
-// Description: Simple camera follow for 2D/3D modes.
-// Author: (Your Name)
-// Date: 2025-08-10
-// Unity Version: 2022.3 LTS
-// ------------------------------------------------------------------------------
-
 using UnityEngine;
 
 namespace MemorySketch
 {
+    [RequireComponent(typeof(Camera))]
     public class CameraController : MonoBehaviour
     {
         [Header("Targets")]
-        [SerializeField] private Transform target2D;
-        [SerializeField] private Transform target3D;
+        public Transform target2D;
+        public Transform target3D;
 
-        [Header("Offsets")]
-        [SerializeField] private Vector3 offset2D = new Vector3(0, 0, -10);
-        [SerializeField] private Vector3 offset3D = new Vector3(0, 5, -10);
+        [Header("2D (Orthographic)")]
+        public float orthoSize = 6f;
+        public float z2D = -10f;            // 2D일 때 카메라 z 위치
+        public float followLerp2D = 12f;
 
-        private bool is3D = false;
+        [Header("3D (Perspective)")]
+        public float fov3D = 60f;
+        public Vector3 offset3D = new Vector3(0, 5, -8);
+        public float followLerp3D = 8f;
+        public bool lookAtTarget3D = true;
 
-        private void LateUpdate()
+        Camera _cam;
+        ViewMode _mode = ViewMode.Mode2D;
+
+        void Awake()
         {
-            Transform t = is3D ? target3D : target2D;
-            if (!t) return;
-            Vector3 desired = t.position + (is3D ? offset3D : offset2D);
-            transform.position = Vector3.Lerp(transform.position, desired, 0.2f);
-            if (is3D) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(t.position - transform.position, Vector3.up), 0.15f);
-            else transform.rotation = Quaternion.identity;
+            _cam = GetComponent<Camera>();
+            ApplyMode(_mode, instant: true);
         }
 
-        public void SwitchCamera(bool to3D) => is3D = to3D;
+        void LateUpdate()
+        {
+            if (_mode == ViewMode.Mode2D && target2D)
+            {
+                var pos = new Vector3(target2D.position.x, target2D.position.y, z2D);
+                transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * followLerp2D);
+                transform.rotation = Quaternion.identity;
+            }
+            else if (_mode == ViewMode.Mode3D && target3D)
+            {
+                var pos = target3D.position + offset3D;
+                transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * followLerp3D);
+                if (lookAtTarget3D)
+                {
+                    var rot = Quaternion.LookRotation(target3D.position - transform.position, Vector3.up);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * followLerp3D);
+                }
+            }
+        }
+
+        public void Set2D(bool instant = false) => ApplyMode(ViewMode.Mode2D, instant);
+        public void Set3D(bool instant = false) => ApplyMode(ViewMode.Mode3D, instant);
+
+        public void ApplyMode(ViewMode mode, bool instant)
+        {
+            _mode = mode;
+
+            if (_mode == ViewMode.Mode2D)
+            {
+                _cam.orthographic = true;
+                _cam.orthographicSize = orthoSize;
+                if (instant && target2D)
+                {
+                    transform.position = new Vector3(target2D.position.x, target2D.position.y, z2D);
+                    transform.rotation = Quaternion.identity;
+                }
+            }
+            else
+            {
+                _cam.orthographic = false;
+                _cam.fieldOfView = fov3D;
+                if (instant && target3D)
+                {
+                    transform.position = target3D.position + offset3D;
+                    if (lookAtTarget3D) transform.LookAt(target3D);
+                }
+            }
+        }
     }
 }

@@ -74,10 +74,12 @@
     <Compile Include="Assets\Scripts\Player\DismensionSwitchInput.cs" />
     <Compile Include="Assets\Scripts\Varco\VarcoServiceStub.cs" />
     <Compile Include="Assets\Scripts\Puzzle\MirrorGate.cs" />
+    <Compile Include="Assets\Scripts\Camera\CameraModeBinder.cs" />
     <Compile Include="Assets\Scripts\Core\GameBoot.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStateSwitcher.cs" />
     <Compile Include="Assets\Scripts\Puzzle\PhotoPortal.cs" />
     <Compile Include="Assets\Scripts\Player\Player3DController.cs" />
+    <Compile Include="Assets\Scripts\Core\VeiwMode.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraRig2D.cs" />
   </ItemGroup>
   <ItemGroup>
