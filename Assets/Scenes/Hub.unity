@@ -244,7 +244,7 @@ MonoBehaviour:
   groundCheckRadius: 0.12
   groundLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!50 &229995012
 Rigidbody2D:
   serializedVersion: 4
@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 534377305}
   - component: {fileID: 534377304}
   - component: {fileID: 534377306}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1276,7 +1276,6 @@ GameObject:
   - component: {fileID: 1310908826}
   - component: {fileID: 1310908831}
   - component: {fileID: 1310908830}
-  - component: {fileID: 1310908829}
   - component: {fileID: 1310908828}
   - component: {fileID: 1310908827}
   m_Layer: 0
@@ -1314,7 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpHeight: 1.2
+  jumpHeight: 5
   gravity: -9.81
   cam: {fileID: 0}
 --- !u!143 &1310908828
@@ -1342,29 +1341,6 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &1310908829
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310908825}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1310908830
 MeshRenderer:
