@@ -58,29 +58,50 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.0f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Photo\MSXPhotoMatcher.cs" />
     <Compile Include="Assets\Scripts\Puzzle\MemoryShard.cs" />
     <Compile Include="Assets\Scripts\Varco\VarcoSpawner.cs" />
     <Compile Include="Assets\Scripts\Player\Player2DController.cs" />
+    <Compile Include="Assets\Scripts\Photo\MSXPhotoPickup.cs" />
+    <Compile Include="Assets\Scripts\Photo\MSXFramingAligner.cs" />
+    <Compile Include="Assets\Scripts\Photo\MSXPhotoPortalLink.cs" />
     <Compile Include="Assets\Scripts\Varco\SketchSystem.cs" />
+    <Compile Include="Assets\Scripts\Photo\MSXPhotoPoseOverlay.cs" />
     <Compile Include="Assets\Scripts\UI_FX\HUDMemory.cs" />
     <Compile Include="Assets\Scripts\Core\SceneFlow.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraRig3D.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\Cutscene\CutscenePlayer.cs" />
+    <Compile Include="Assets\Scripts\World\MSXPaperPlaneRide.cs" />
+    <Compile Include="Assets\Scripts\World\MSXMirrorRitual.cs" />
+    <Compile Include="Assets\Scripts\Core 1\MSXCommonEvents.cs" />
     <Compile Include="Assets\Scripts\Core\GameState.cs" />
+    <Compile Include="Assets\Scripts\Interaction\MSXKeyPoseAligner.cs" />
+    <Compile Include="Assets\Scripts\Interaction\MSXPhoneReflectionUnlock.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\UI_FX\FadeUI.cs" />
     <Compile Include="Assets\Scripts\Puzzle\HiddenPath2D.cs" />
+    <Compile Include="Assets\Scripts\World\MSXSnakeJarOpen.cs" />
     <Compile Include="Assets\Scripts\Player\DismensionSwitchInput.cs" />
+    <Compile Include="Assets\Scripts\World\MSXDollAppear.cs" />
+    <Compile Include="Assets\Scripts\World\MSXGlideCourseFlag.cs" />
     <Compile Include="Assets\Scripts\Varco\VarcoServiceStub.cs" />
     <Compile Include="Assets\Scripts\Puzzle\MirrorGate.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraModeBinder.cs" />
+    <Compile Include="Assets\Scripts\World\MSXDropZone.cs" />
     <Compile Include="Assets\Scripts\Core\GameBoot.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStateSwitcher.cs" />
     <Compile Include="Assets\Scripts\Puzzle\PhotoPortal.cs" />
     <Compile Include="Assets\Scripts\Player\Player3DController.cs" />
+    <Compile Include="Assets\Scripts\World\MSXPrinterOutput.cs" />
+    <Compile Include="Assets\Scripts\Photo\MSXPoseMatch2D.cs" />
+    <Compile Include="Assets\Scripts\Interaction\MSXColorKey.cs" />
     <Compile Include="Assets\Scripts\Core\VeiwMode.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraRig2D.cs" />
+    <Compile Include="Assets\Scripts\World\MSXDoorOpener.cs" />
+    <Compile Include="Assets\Scripts\Interaction\MSXColorPattern.cs" />
+    <Compile Include="Assets\Scripts\World\MSXAntEatSequence.cs" />
+    <Compile Include="Assets\Scripts\World\MSXPrefabSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
