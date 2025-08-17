@@ -75,8 +75,8 @@
     <Compile Include="Assets\Scripts\World\MSXPaperPlaneRide.cs" />
     <Compile Include="Assets\Scripts\World\MSXMirrorRitual.cs" />
     <Compile Include="Assets\Scripts\Core 1\MSXCommonEvents.cs" />
-    <Compile Include="Assets\Scripts\Core\GameState.cs" />
     <Compile Include="Assets\Scripts\Interaction\MSXKeyPoseAligner.cs" />
+    <Compile Include="Assets\Scripts\Core\GameState.cs" />
     <Compile Include="Assets\Scripts\Interaction\MSXPhoneReflectionUnlock.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\UI_FX\FadeUI.cs" />
